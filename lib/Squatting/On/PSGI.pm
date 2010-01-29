@@ -2,7 +2,7 @@ package Squatting::On::PSGI;
 
 use strict;
 use 5.008_001;
-our $VERSION = '0.01';
+our $VERSION = '0.03';
 
 use CGI::Cookie;
 use Plack::Request;
@@ -25,8 +25,12 @@ $p{init_cc} = sub {
 # \%input = i($env)  # Extract CGI parameters from an env object
 $p{i} = sub {
   my $r = Plack::Request->new($_[0]);
-  my $p = $r->params;
-  +{%$p};
+  my %q;
+  for my $p ($r->param) {
+    my @v = $r->param($p);
+    $q{$p} = @v > 1 ? \@v : $v[0];
+  }
+  \%q;
 };
 
 # \%cookies = $p{c}->($cookie_header)  # Parse Cookie header(s).

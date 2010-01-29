@@ -20,10 +20,11 @@ no_index:
     - t
     - xt
 requires:
+  Filter::Util::Call: 0
   Plack::Request: 0
   Squatting: 0
   perl: 5.8.1
 resources:
   license: http://dev.perl.org/licenses/
   repository: git://github.com/beppu/Squatting-On-PSGI.git
-version: 0.01
+version: 0.03
